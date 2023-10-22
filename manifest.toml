@@ -4,19 +4,18 @@ packaging_format = 2
 
 id = "proxigram"
 name = "Proxigram"
-description.en = "Front-end for Instagram"
-description.fr = "Front-end for Instagram"
+description.en = "Privacy focused front-end for Instagram"
+description.fr = "Front-end  axé sur la confidentialité pour Instagram"
 
 version = "1.0~ynh1"
 
-maintainers = ["johndoe"]
+maintainers = ["eric_G"]
 
 [upstream]
-license = "free"
+license = "AGPL 3.0"
 website = "https://example.com"
 demo = "https://demo.example.com"
 admindoc = "https://yunohost.org/packaging_apps"
-userdoc = "https://yunohost.org/apps"
 code = "https://codeberg.org/ThePenguinDev/Proxigram"
 
 [integration]
@@ -46,13 +45,11 @@ ram.runtime = "50M"
 
         [resources.sources.main]
         url = "https://codeberg.org/ThePenguinDev/Proxigram/archive/main.tar.gz"
-        sha256 = "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+        sha256 = "6cce1c897ab390b2285933df35ce2e7bbd7ba687fefc44dfdbd85e3f63575a1d"
 
     [resources.system_user]
 
     [resources.install_dir]
-
-    #[resources.data_dir]
 
     [resources.permissions]
     main.url = "/"
