@@ -10,6 +10,14 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
+# INSTALL DEPENDENCIES
+#=================================================
+ynh_script_progression --message="Installing dependencies..." --weight=7
+
+# Install Nodejs
+ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$nodejs_version
+
+#=================================================
 # APP "BUILD" (DEPLOYING SOURCES, VENV, COMPILING ETC)
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -29,6 +37,7 @@ ynh_script_progression --message="Adding system configurations related to $app..
 # Create a dedicated NGINX config using the conf/nginx.conf template
 ynh_add_nginx_config
 
+env_path="$PATH"
 # Create a dedicated systemd config
 ynh_add_systemd_config
 
@@ -45,6 +54,17 @@ ynh_add_config --template=".env" --destination="$install_dir/.env"
 
 chmod 400 "$install_dir/.env"
 chown $app:$app "$install_dir/.env"
+
+#=================================================
+# INSTALL THE LOUNGE
+#=================================================
+ynh_script_progression --message="Installing The Lounge..." --weight=10
+
+pushd $install_dir
+ 	ynh_use_nodejs
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH NODE_ENV=production yarn build
+popd
 
 #=================================================
 # GENERIC FINALIZATION
